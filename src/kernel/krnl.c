@@ -1,10 +1,10 @@
-
-volatile unsigned char* VGA = (volatile unsigned char*)0xB8000;
+#include "./vga.h"
 
 void kmain()
 {
-    VGA[0] = 'A';
-    VGA[1] = 0x07;
+    kclear(0x07);
+    kputs("ununennium is loading...", 0x07);
+    kpanic();
     __asm__ volatile ("cli");
     __asm__ volatile ("hlt");
 
