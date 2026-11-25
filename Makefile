@@ -2,10 +2,10 @@ BLD=./bld
 SRC=./src
 KRNL=./src/kernel
 
-always: tsix
+always: ununennium
 
-tsix: ${BLD}/*.o
-	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o -o tsix
+ununennium: ${BLD}/*.o
+	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o -o ununennium
 
 ${BLD}/krnl.o: ${KRNL}/krnl.c
 	i686-elf-gcc -c ${KRNL}/krnl.c -o ${BLD}/krnl.o
