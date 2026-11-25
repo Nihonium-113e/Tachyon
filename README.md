@@ -11,7 +11,7 @@ This project will probably not be useful for many people, it is made entirely as
 
 Requirements to build:
 
-  - GCC and Binutils Cross-Compiler for i686-elf (i will try to make it available without cross-compiler requirements)
+  - GCC and Binutils
   - NASM installed
 
 Requirements to run:
