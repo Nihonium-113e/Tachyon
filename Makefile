@@ -4,7 +4,7 @@ KRNL=./src/kernel
 
 always: ununennium
 
-ununennium: ${BLD}/*.o
+ununennium: ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o
 	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o -o ununennium
 
 ${BLD}/krnl.o: ${KRNL}/krnl.c
