@@ -9,7 +9,7 @@ volatile unsigned char* VGA = (volatile unsigned char*)0xB8000;
 volatile unsigned int x=0;
 volatile unsigned int y=0;
 
-int kpanic() {
+void kpanic() {
     kclear(0x17);
     y=5;
     kputs("                             === KERNEL PANIC!! ===                             \n", 0x71);
@@ -18,20 +18,19 @@ int kpanic() {
     kputs("                    your data, please turn off your computer.                   \n", 0x17);
     kput('\n', 0x17);
     kputs("                                   No signal.                                     ", 0x17);
-} 
+}
 
-int kputs(char *str, int col) {
+void kputs(char *str, int col) {
     for(int i=0; str[i]!='\0'; i++) { 
         kput(str[i], col);
     }
-    return 0;
 }
 
-int kput(char c, int color) {
+void kput(char c, int color) {
     if(c=='\n') {
         if(y>=25)
         {
-            return 0;
+            kscroll();
         } else {
             x=0;
             y++;
@@ -40,12 +39,12 @@ int kput(char c, int color) {
         VGA[INDEX] = c;
         VGA[INDEX+1] = color;
         x++;
-        return 0;
+        
     }
     
 }
 
-int kclear(int color) {
+void kclear(int color) {
     x=0;
     y=0;
     for(int i=0; i<=80; i++) {
@@ -55,5 +54,22 @@ int kclear(int color) {
     }
     x=0;
     y=0;
-    return 0;
+}
+
+void kscrmov(int sx, int sy, int fx, int fy){
+    VGA[((WIDTH*fy)+fx)*2]=VGA[((WIDTH*sy)+sx)*2];
+    VGA[((WIDTH*fy)+fx)*2+1]=VGA[((WIDTH*sy)+sx)*2+1];
+    VGA[((WIDTH*sy)+sx)*2]=' ';
+    VGA[((WIDTH*sy)+sx)*2+1]=0x07;
+}
+void kscrmovl(int sy, int fy){
+    for(int i=0; i<WIDTH; i++){
+        kscrmov(i, sy, i, fy);
+    }
+}
+
+void kscroll(){
+    for(int i=0; i<HEIGHT; i++){
+        kscrmovl(i+1, i);
+    }
 }

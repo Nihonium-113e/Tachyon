@@ -1,9 +1,12 @@
 #ifndef VGA_H
 #define VGA_H
 
-int kpanic();
-int kputs(char *str, int color);
-int kput(char c, int color);
-int kclear(int color);
+void kscroll();
+void kscrmovl(int sy, int fy);
+void kscrmov(int sx, int sy, int fx, int fy);
+void kpanic();
+void kputs(char *str, int color);
+void kput(char c, int color);
+void kclear(int color);
 
-#endif 
+#endif
