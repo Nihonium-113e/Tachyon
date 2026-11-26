@@ -6,4 +6,4 @@ int kputs(char *str, int color);
 int kput(char c, int color);
 int kclear(int color);
 
-#endif
+#endif 

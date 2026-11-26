@@ -18,7 +18,7 @@ int kpanic() {
     kputs("                    your data, please turn off your computer.                   \n", 0x17);
     kput('\n', 0x17);
     kputs("                                   No signal.                                     ", 0x17);
-}
+} 
 
 int kputs(char *str, int col) {
     for(int i=0; str[i]!='\0'; i++) { 
