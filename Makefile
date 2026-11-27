@@ -2,10 +2,10 @@ BLD=./bld
 SRC=./src
 KRNL=./src/kernel
 
-always: ununennium
+always: tachyon
 
-ununennium: ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o
-	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o -o ununennium
+tachyon: ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o
+	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o -o tachyon
 
 ${BLD}/krnl.o: ${KRNL}/krnl.c
 	gcc -m32 -ffreestanding -nostdlib -nostartfiles -c ${KRNL}/krnl.c -o ${BLD}/krnl.o
