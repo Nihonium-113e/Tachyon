@@ -1,6 +1,6 @@
-# Ununennium
+# Tachyon
 
-Ununennium (symbol Uue, element 119, period 8, group 1) hypothetical element that as of today, has not yet been synthesized by scientists...
+Tachyon: Theoretical particle that always goes faster than light, no experiments have shown that it exists...
 
 This is a kernel, It has basic features like printing text to the screen and consuming electricity, I promise I will add more features when I have time.
 
@@ -18,14 +18,6 @@ Requirements to run:
   - 32 bits
   - at least 10MB of RAM
   - electricity
-
-........
-........
-........
-........
-........
-
-Ununennium is a temporary name btw, i will try to come up with a name later.
 
 bye.
 
