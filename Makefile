@@ -4,8 +4,8 @@ KRNL=./src/kernel
 
 always: tachyon
 
-tachyon: ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o
-	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o -o tachyon
+tachyon: ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o ${BLD}/io.o
+	ld -T link.ld -m elf_i386 ${BLD}/load.o ${BLD}/krnl.o ${BLD}/vga.o ${BLD}/io.o -o tachyon
 
 ${BLD}/krnl.o: ${KRNL}/krnl.c
 	gcc -m32 -ffreestanding -nostdlib -nostartfiles -c ${KRNL}/krnl.c -o ${BLD}/krnl.o

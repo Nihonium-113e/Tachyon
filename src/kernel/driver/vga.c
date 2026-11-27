@@ -1,4 +1,5 @@
 #include "./vga.h"
+#include "./io.h"
 
 volatile unsigned char* VGA = (volatile unsigned char*)0xB8000;
 
@@ -9,9 +10,25 @@ volatile unsigned char* VGA = (volatile unsigned char*)0xB8000;
 volatile unsigned int x=0;
 volatile unsigned int y=0;
 
+void kcurset() {
+    outb(0x3D4, 0x0A);
+    outb(0x3D5, 0x20);
+}
 
+char kgetscan() {
+    while((inb(0x64) & 0x01)==0){
 
-void kpanic() {
+    }
+    if(inb(0x60)==0x19){
+        kpanic("Manual Crash");
+        __asm__ volatile ("cli");
+        __asm__ volatile ("hlt");
+    } else {
+        return inb(0x60);
+    }
+}
+
+void kpanic(char *str) {
     kclear(0x17);
     y=5;
     kputs("                             === KERNEL PANIC!! ===                             \n", 0x71);
@@ -20,6 +37,9 @@ void kpanic() {
     kputs("                    your data, please turn off your computer.                   \n", 0x17);
     kput('\n', 0x17);
     kputs("                                   No signal.                                     ", 0x17);
+    kputs("\n\n\n\n\n\n\n\n\n\n\n\n\n\n", 0x17);
+    kputs("Error: ", 0x17);
+    kputs(str, 0x17);
 }
 
 void kputs(char *str, int col) {
@@ -30,7 +50,7 @@ void kputs(char *str, int col) {
 
 void kput(char c, int color) {
     if(c=='\n') {
-        if(y>=25)
+        if(y>=24)
         {
             kscroll();
         } else {
@@ -71,7 +91,8 @@ void klinemov(int sy, int fy){
 }
 
 void kscroll(){
-    for(int i=-1; i<HEIGHT; i++){
+    for(int i=0; i<HEIGHT; i++){
         klinemov(i+1, i);
     }
+    x=0;
 }
