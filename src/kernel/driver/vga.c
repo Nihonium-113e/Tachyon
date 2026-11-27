@@ -9,6 +9,8 @@ volatile unsigned char* VGA = (volatile unsigned char*)0xB8000;
 volatile unsigned int x=0;
 volatile unsigned int y=0;
 
+
+
 void kpanic() {
     kclear(0x17);
     y=5;
@@ -56,20 +58,20 @@ void kclear(int color) {
     y=0;
 }
 
-void kscrmov(int sx, int sy, int fx, int fy){
+void kcharmov(int sx, int sy, int fx, int fy){
     VGA[((WIDTH*fy)+fx)*2]=VGA[((WIDTH*sy)+sx)*2];
     VGA[((WIDTH*fy)+fx)*2+1]=VGA[((WIDTH*sy)+sx)*2+1];
     VGA[((WIDTH*sy)+sx)*2]=' ';
     VGA[((WIDTH*sy)+sx)*2+1]=0x07;
 }
-void kscrmovl(int sy, int fy){
+void klinemov(int sy, int fy){
     for(int i=0; i<WIDTH; i++){
-        kscrmov(i, sy, i, fy);
+        kcharmov(i, sy, i, fy);
     }
 }
 
 void kscroll(){
-    for(int i=0; i<HEIGHT; i++){
-        kscrmovl(i+1, i);
+    for(int i=-1; i<HEIGHT; i++){
+        klinemov(i+1, i);
     }
 }
