@@ -18,3 +18,7 @@ ${BLD}/load.o: ${SRC}/boot/load.s
 
 ${BLD}/io.o: ${KRNL}/driver/io.s
 	nasm -f elf32 ${KRNL}/driver/io.s -o ${BLD}/io.o
+
+clean:
+	rm -rf tachyon
+	rm -rf ${BLD}/*
